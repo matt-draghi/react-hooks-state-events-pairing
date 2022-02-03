@@ -1,17 +1,33 @@
 import video from "../data/video.js";
+import EmbedVid from "./EmbedVid.js";
+import Header from "./Header.js";
+import {useState} from "react"
+import CommentHeader from "./CommentHeader.js"
 
 function App() {
   console.log("Here's your data:", video);
+  
+  const [upvotes, setUpvotes] = useState(video.upvotes)
+  const [downvotes, setDownvotes] = useState(video.downvotes)
+
+  const [showComments, setShowComments] = useState(true)
 
   return (
     <div className="App">
-      <iframe
-        width="919"
-        height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameBorder="0"
-        allowFullScreen
-        title="Thinking in React"
+      <EmbedVid src={video.embedUrl}/>
+      <Header 
+        title={video.title}
+        views={video.views}
+        createdAt={video.createdAt}
+        upvotes={upvotes}
+        setUpvotes = {setUpvotes}
+        downvotes={downvotes}
+        setDownvotes={setDownvotes}
+      />
+      <CommentHeader 
+        comments={video.comments}
+        showComments={showComments}
+        setShowComments={setShowComments}
       />
     </div>
   );
